@@ -1,3 +1,12 @@
+/* 폰트 정의 */
+@font-face {
+    font-family: 'Ownglyph PDH';
+    src: url('fonts/온글잎 박다현체.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
 /* 기본 스타일 리셋 */
 * {
     margin: 0;
@@ -6,9 +15,9 @@
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     line-height: 1.6;
-    color: #333;
+    color: #4D4D4D;
     background-color: #f8f9fa;
 }
 
@@ -19,7 +28,7 @@ header {
     position: sticky;
     top: 0;
     z-index: 1000;
-    padding: 1rem 0;
+    padding: 0.75rem 0;
 }
 
 .header-container {
@@ -32,37 +41,42 @@ header {
 }
 
 .logo h1 {
+    font-family: 'Ownglyph PDH', 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     font-size: 1.5rem;
     font-weight: bold;
-    color: #FEE500; /* 카카오 옐로우 */
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    color: #FFDF75; /* 버터 옐로우 */
 }
 
 .header-actions {
     display: flex;
-    gap: 1rem;
+    gap: 0.75rem;
+    align-items: center;
 }
 
 .heart-btn, .back-btn, .login-btn, .upload-btn {
     color: #666;
     text-decoration: none;
-    font-size: 1.2rem;
-    padding: 0.5rem;
+    font-size: 1rem;
+    padding: 0.4rem;
     border-radius: 50%;
     transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .login-btn, .upload-btn {
-    border-radius: 20px;
-    padding: 0.5rem 1rem;
+    border-radius: 16px;
+    padding: 0.4rem 0.8rem;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    font-size: 0.9rem;
+    gap: 0.3rem;
+    font-size: 0.8rem;
+    min-width: auto;
 }
 
 .upload-btn {
-    background-color: #FEE500;
+    background-color: #FFDF75;
     color: #333;
     font-weight: 500;
 }
@@ -73,7 +87,7 @@ header {
 }
 
 .upload-btn:hover {
-    background-color: #f4d800;
+    background-color: #FFDF75;
     transform: translateY(-1px);
 }
 
@@ -81,30 +95,36 @@ header {
 main {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 1rem;
+    padding: 0 0.75rem;
 }
 
 /* 탭 스타일 */
 .tabs {
-    margin: 2rem 0 1rem 0;
+    margin: 1.5rem 0 1rem 0;
 }
 
 .tab-container {
     display: flex;
-    gap: 1rem;
+    width: 100%;
     border-bottom: 2px solid #e9ecef;
 }
 
 .tab-btn {
     background: none;
     border: none;
-    padding: 1rem 2rem;
-    font-size: 1rem;
+    padding: 1rem 0;
+    font-size: 0.95rem;
     font-weight: 500;
     color: #666;
     cursor: pointer;
     transition: all 0.3s ease;
     position: relative;
+    flex: 1;
+    text-align: center;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .tab-btn.active {
@@ -119,17 +139,17 @@ main {
     left: 0;
     right: 0;
     height: 2px;
-    background-color: #FEE500;
+    background-color: #FFDF75;
 }
 
 /* 카테고리 스타일 */
 .categories {
-    margin: 1rem 0 2rem 0;
+    margin: 1rem 0 1.5rem 0;
 }
 
 .category-container {
     display: flex;
-    gap: 0.75rem;
+    gap: 0.5rem;
     overflow-x: auto;
     padding: 0.5rem 0;
     scrollbar-width: none; /* Firefox */
@@ -143,7 +163,7 @@ main {
 .category-btn {
     background: white;
     border: 1px solid #e9ecef;
-    padding: 0.75rem 1.5rem;
+    padding: 0.6rem 1.2rem;
     border-radius: 25px;
     font-size: 0.9rem;
     font-weight: 500;
@@ -155,26 +175,28 @@ main {
 }
 
 .category-btn:hover {
-    border-color: #FEE500;
-    color: #333;
+    border-color: #FFDF75;
+    color: #4D4D4D;
+    background-color: #f8f9fa;
 }
 
 .category-btn.active {
-    background-color: #FEE500;
-    border-color: #FEE500;
-    color: #333;
+    background-color: #FFDF75;
+    border-color: #FFDF75;
+    color: #4D4D4D;
     font-weight: 600;
 }
 
 /* 갤러리 스타일 */
 .theme-gallery {
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
 }
 
 .gallery-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    width: 100%;
 }
 
 /* 테마 카드 */
@@ -194,7 +216,7 @@ main {
 
 .theme-image {
     width: 100%;
-    height: 200px;
+    aspect-ratio: 3/4;
     position: relative;
     overflow: hidden;
 }
@@ -206,7 +228,7 @@ main {
 }
 
 .theme-content {
-    padding: 1rem;
+    padding: 0.75rem;
 }
 
 .theme-header {
@@ -217,36 +239,37 @@ main {
 }
 
 .theme-title {
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: 600;
     color: #333;
     margin-bottom: 0.25rem;
+    line-height: 1.3;
 }
 
 .theme-creator {
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     color: #666;
 }
 
 .theme-actions {
     display: flex;
     gap: 0.5rem;
-    margin-top: 1rem;
+    margin-top: 0.75rem;
 }
 
 .favorite-btn, .download-btn {
     flex: 1;
-    padding: 0.75rem;
+    padding: 0.6rem;
     border: none;
     border-radius: 8px;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     font-weight: 500;
     cursor: pointer;
     transition: all 0.3s ease;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem;
+    gap: 0.3rem;
 }
 
 .favorite-btn {
@@ -265,7 +288,7 @@ main {
 }
 
 .download-btn {
-    background-color: #FEE500;
+    background-color: #FFDF75;
     color: #333;
     text-decoration: none;
 }
@@ -297,7 +320,7 @@ main {
 }
 
 .favorites-count {
-    background-color: #FEE500;
+    background-color: #FFDF75;
     color: #333;
     padding: 0.25rem 0.75rem;
     border-radius: 15px;
@@ -341,7 +364,7 @@ main {
 
 .browse-link {
     display: inline-block;
-    background: #FEE500;
+    background: #FFDF75;
     color: #333;
     text-decoration: none;
     padding: 1rem 2rem;
@@ -355,56 +378,154 @@ main {
 }
 
 /* 반응형 디자인 */
-@media (max-width: 768px) {
+@media (min-width: 768px) {
     .header-container {
-        padding: 0 1rem;
+        padding: 0 1.5rem;
     }
     
     .logo h1 {
-        font-size: 1.3rem;
+        font-size: 1.7rem;
     }
     
-    .tab-container {
-        gap: 0.5rem;
-    }
-    
-    .tab-btn {
-        padding: 0.75rem 1.5rem;
-        font-size: 0.9rem;
-    }
-    
-    .gallery-container {
-        grid-template-columns: repeat(2, 1fr);
+    .header-actions {
         gap: 1rem;
     }
     
-    .theme-image {
-        height: 150px;
+    .login-btn, .upload-btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+    }
+    
+    main {
+        padding: 0 1rem;
+    }
+    
+    .tabs {
+        margin: 2rem 0 1rem 0;
+    }
+    
+    .tab-btn {
+        padding: 1rem 2rem;
+        font-size: 1rem;
+        flex: none;
+        min-width: 120px;
+    }
+    
+    .gallery-container {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+    }
+    
+    .theme-content {
+        padding: 1rem;
+    }
+    
+    .theme-title {
+        font-size: 1.1rem;
+    }
+    
+    .theme-actions {
+        margin-top: 1rem;
+    }
+    
+    .favorite-btn, .download-btn {
+        padding: 0.75rem;
+        font-size: 0.9rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .gallery-container {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .gallery-container {
+        grid-template-columns: repeat(5, 1fr);
+        gap: 24px;
+    }
+}
+
+@media (max-width: 480px) {
+    .header-container {
+        padding: 0 0.75rem;
+    }
+    
+    .logo h1 {
+        font-size: 1.4rem;
+    }
+    
+    .header-actions {
+        gap: 0.5rem;
+    }
+    
+    .heart-btn, .back-btn {
+        font-size: 0.9rem;
+        padding: 0.3rem;
+    }
+    
+    .login-btn, .upload-btn {
+        padding: 0.3rem 0.6rem;
+        font-size: 0.75rem;
+        gap: 0.2rem;
+    }
+    
+    main {
+        padding: 0 0.5rem;
+    }
+    
+    .tabs {
+        margin: 1rem 0 0.75rem 0;
+    }
+    
+    .tab-btn {
+        padding: 0.875rem 0;
+        font-size: 0.9rem;
+        min-height: 44px;
+    }
+    
+    .categories {
+        margin: 0.75rem 0 1rem 0;
+    }
+    
+    .category-btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.85rem;
+    }
+    
+    .gallery-container {
+        gap: 10px;
+    }
+    
+    .theme-content {
+        padding: 0.6rem;
+    }
+    
+    .theme-title {
+        font-size: 0.9rem;
+    }
+    
+    .theme-creator {
+        font-size: 0.75rem;
+    }
+    
+    .theme-actions {
+        margin-top: 0.6rem;
+        gap: 0.4rem;
+    }
+    
+    .favorite-btn, .download-btn {
+        padding: 0.5rem;
+        font-size: 0.75rem;
+        gap: 0.2rem;
     }
     
     .favorites-header {
         flex-direction: column;
         gap: 1rem;
         text-align: center;
-    }
-}
-
-@media (max-width: 480px) {
-    main {
-        padding: 0 0.75rem;
-    }
-    
-    .gallery-container {
-        grid-template-columns: 1fr;
-    }
-    
-    .theme-actions {
-        flex-direction: column;
-    }
-    
-    .category-btn {
-        padding: 0.5rem 1rem;
-        font-size: 0.8rem;
     }
 }
 
@@ -436,33 +557,20 @@ main {
     left: 0;
     right: 0;
     height: 4px;
-    background: linear-gradient(90deg, #FEE500 0%, #f4d800 100%);
+    background: linear-gradient(90deg, #FFDF75 0%, #f4d800 100%);
 }
 
+/* 제목과 노란 선 숨기기 */
 .login-header {
-    text-align: center;
-    margin-bottom: 2.5rem;
-}
-
-.login-header h2 {
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: #333;
-    margin-bottom: 1rem;
-    letter-spacing: -0.5px;
+    display: none;
 }
 
 .login-divider {
-    height: 3px;
-    background: linear-gradient(90deg, #FEE500 0%, #f4d800 100%);
-    width: 100%;
-    max-width: 60px;
-    margin: 0 auto;
-    border-radius: 2px;
+    display: none;
 }
 
 .login-form {
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
 }
 
 .form-group {
@@ -502,13 +610,13 @@ main {
 
 .form-group input:focus {
     outline: none;
-    border-color: #FEE500;
+    border-color: #FFDF75;
     background-color: white;
-    box-shadow: 0 0 0 4px rgba(254, 229, 0, 0.1);
+    box-shadow: 0 0 0 4px rgba(255, 223, 117, 0.1);
 }
 
 .form-group input:focus + .input-icon {
-    color: #FEE500;
+    color: #FFDF75;
 }
 
 .form-options {
@@ -544,8 +652,8 @@ main {
 }
 
 .remember-me input[type="checkbox"]:checked + .checkmark {
-    background-color: #FEE500;
-    border-color: #FEE500;
+    background-color: #FFDF75;
+    border-color: #FFDF75;
 }
 
 .remember-me input[type="checkbox"]:checked + .checkmark::after {
@@ -560,7 +668,7 @@ main {
 }
 
 .forgot-password {
-    color: #FEE500;
+    color: #FFDF75;
     text-decoration: none;
     font-size: 0.9rem;
     font-weight: 500;
@@ -574,7 +682,7 @@ main {
 
 .login-submit-btn {
     width: 100%;
-    background: linear-gradient(135deg, #FEE500 0%, #f4d800 100%);
+    background: linear-gradient(135deg, #FFDF75 0%, #f4d800 100%);
     color: #333;
     border: none;
     padding: 1rem;
@@ -587,12 +695,12 @@ main {
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    box-shadow: 0 4px 15px rgba(254, 229, 0, 0.3);
+    box-shadow: 0 4px 15px rgba(255, 223, 117, 0.3);
 }
 
 .login-submit-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(254, 229, 0, 0.4);
+    box-shadow: 0 6px 20px rgba(255, 223, 117, 0.4);
 }
 
 .login-submit-btn:active {
@@ -601,30 +709,31 @@ main {
 
 .form-switch {
     text-align: center;
-    margin-top: 2rem;
+    margin-top: 1.5rem;
     padding-top: 1.5rem;
     border-top: 1px solid #e9ecef;
 }
 
 .switch-text {
-    color: #999;
+    color: #666;
     cursor: pointer;
     font-size: 0.95rem;
     font-weight: 500;
     transition: all 0.3s ease;
     padding: 0.5rem 1rem;
     border-radius: 8px;
+    background-color: white;
 }
 
 .switch-text:hover {
     color: #333;
-    background-color: #f8f9fa;
+    background-color: #f0f0f0;
 }
 
 .switch-text.active {
     color: #333;
     font-weight: 600;
-    background-color: #FEE500;
+    background-color: #f0f0f0;
 }
 
 .switch-divider {
@@ -639,10 +748,6 @@ main {
         max-width: 350px;
         padding: 2rem 1.5rem;
         margin: 1rem;
-    }
-    
-    .login-header h2 {
-        font-size: 1.6rem;
     }
     
     .form-options {
@@ -660,10 +765,6 @@ main {
     .login-container {
         padding: 1.5rem 1rem;
         border-radius: 12px;
-    }
-    
-    .login-header h2 {
-        font-size: 1.4rem;
     }
     
     .form-group input {
@@ -715,7 +816,7 @@ main {
     left: 0;
     right: 0;
     height: 4px;
-    background: linear-gradient(90deg, #FEE500 0%, #f4d800 100%);
+    background: linear-gradient(90deg, #FFDF75 0%, #f4d800 100%);
 }
 
 .upload-header {
@@ -770,9 +871,9 @@ main {
 .upload-form input:focus,
 .upload-form textarea:focus {
     outline: none;
-    border-color: #FEE500;
+    border-color: #FFDF75;
     background-color: white;
-    box-shadow: 0 0 0 4px rgba(254, 229, 0, 0.1);
+    box-shadow: 0 0 0 4px rgba(255, 223, 117, 0.1);
 }
 
 .upload-form textarea {
@@ -857,8 +958,8 @@ main {
 }
 
 .checkbox-label input[type="checkbox"]:checked + .checkmark {
-    background-color: #FEE500;
-    border-color: #FEE500;
+    background-color: #FFDF75;
+    border-color: #FFDF75;
 }
 
 .checkbox-label input[type="checkbox"]:checked + .checkmark::after {
@@ -874,7 +975,7 @@ main {
 
 .upload-submit-btn {
     width: 100%;
-    background: linear-gradient(135deg, #FEE500 0%, #f4d800 100%);
+    background: linear-gradient(135deg, #FFDF75 0%, #f4d800 100%);
     color: #333;
     border: none;
     padding: 1rem;
@@ -887,13 +988,13 @@ main {
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    box-shadow: 0 4px 15px rgba(254, 229, 0, 0.3);
+    box-shadow: 0 4px 15px rgba(255, 223, 117, 0.3);
     margin-top: 1rem;
 }
 
 .upload-submit-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(254, 229, 0, 0.4);
+    box-shadow: 0 6px 20px rgba(255, 223, 117, 0.4);
 }
 
 .upload-submit-btn:active {

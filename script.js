@@ -184,7 +184,7 @@ function createThemeCard(theme) {
                 <div class="theme-actions">
                     <button class="favorite-btn ${isFavorited ? 'favorited' : ''}" onclick="toggleFavorite('${theme.id}')">
                         <i class="fas fa-heart"></i>
-                        ${isFavorited ? '찜됨' : '찜하기'}
+                        ${isFavorited ? '찜!' : '찜하기'}
                     </button>
                     <a href="${theme.link}" class="download-btn" target="_blank">
                         <i class="fas fa-download"></i>
