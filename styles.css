@@ -1,0 +1,928 @@
+/* 기본 스타일 리셋 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f8f9fa;
+}
+
+/* 헤더 스타일 */
+header {
+    background: white;
+    border-bottom: 1px solid #e9ecef;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    padding: 1rem 0;
+}
+
+.header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo h1 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #FEE500; /* 카카오 옐로우 */
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+.header-actions {
+    display: flex;
+    gap: 1rem;
+}
+
+.heart-btn, .back-btn, .login-btn, .upload-btn {
+    color: #666;
+    text-decoration: none;
+    font-size: 1.2rem;
+    padding: 0.5rem;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.login-btn, .upload-btn {
+    border-radius: 20px;
+    padding: 0.5rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.upload-btn {
+    background-color: #FEE500;
+    color: #333;
+    font-weight: 500;
+}
+
+.heart-btn:hover, .back-btn:hover, .login-btn:hover, .upload-btn:hover {
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+.upload-btn:hover {
+    background-color: #f4d800;
+    transform: translateY(-1px);
+}
+
+/* 메인 콘텐츠 */
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+/* 탭 스타일 */
+.tabs {
+    margin: 2rem 0 1rem 0;
+}
+
+.tab-container {
+    display: flex;
+    gap: 1rem;
+    border-bottom: 2px solid #e9ecef;
+}
+
+.tab-btn {
+    background: none;
+    border: none;
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #666;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.tab-btn.active {
+    color: #333;
+    font-weight: 600;
+}
+
+.tab-btn.active::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background-color: #FEE500;
+}
+
+/* 카테고리 스타일 */
+.categories {
+    margin: 1rem 0 2rem 0;
+}
+
+.category-container {
+    display: flex;
+    gap: 0.75rem;
+    overflow-x: auto;
+    padding: 0.5rem 0;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+}
+
+.category-container::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+}
+
+.category-btn {
+    background: white;
+    border: 1px solid #e9ecef;
+    padding: 0.75rem 1.5rem;
+    border-radius: 25px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #666;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.category-btn:hover {
+    border-color: #FEE500;
+    color: #333;
+}
+
+.category-btn.active {
+    background-color: #FEE500;
+    border-color: #FEE500;
+    color: #333;
+    font-weight: 600;
+}
+
+/* 갤러리 스타일 */
+.theme-gallery {
+    margin-bottom: 3rem;
+}
+
+.gallery-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+/* 테마 카드 */
+.theme-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.theme-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.theme-image {
+    width: 100%;
+    height: 200px;
+    position: relative;
+    overflow: hidden;
+}
+
+.theme-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.theme-content {
+    padding: 1rem;
+}
+
+.theme-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.5rem;
+}
+
+.theme-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 0.25rem;
+}
+
+.theme-creator {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.theme-actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.favorite-btn, .download-btn {
+    flex: 1;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.favorite-btn {
+    background-color: #f8f9fa;
+    color: #666;
+}
+
+.favorite-btn.favorited {
+    background-color: #ff6b6b;
+    color: white;
+}
+
+.favorite-btn:hover {
+    background-color: #ff6b6b;
+    color: white;
+}
+
+.download-btn {
+    background-color: #FEE500;
+    color: #333;
+    text-decoration: none;
+}
+
+.download-btn:hover {
+    background-color: #f4d800;
+}
+
+/* 즐겨찾기 페이지 스타일 */
+.favorites-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 2rem 0 1rem 0;
+    padding: 1rem 0;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.favorites-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.favorites-title h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.favorites-count {
+    background-color: #FEE500;
+    color: #333;
+    padding: 0.25rem 0.75rem;
+    border-radius: 15px;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.clear-all-btn {
+    background: #ff6b6b;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.clear-all-btn:hover {
+    background: #ff5252;
+}
+
+.empty-message {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: #666;
+    display: none;
+}
+
+.empty-message i {
+    font-size: 3rem;
+    color: #ccc;
+    margin-bottom: 1rem;
+}
+
+.empty-message p {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+}
+
+.browse-link {
+    display: inline-block;
+    background: #FEE500;
+    color: #333;
+    text-decoration: none;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: background 0.3s ease;
+}
+
+.browse-link:hover {
+    background: #f4d800;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .header-container {
+        padding: 0 1rem;
+    }
+    
+    .logo h1 {
+        font-size: 1.3rem;
+    }
+    
+    .tab-container {
+        gap: 0.5rem;
+    }
+    
+    .tab-btn {
+        padding: 0.75rem 1.5rem;
+        font-size: 0.9rem;
+    }
+    
+    .gallery-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+    
+    .theme-image {
+        height: 150px;
+    }
+    
+    .favorites-header {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    main {
+        padding: 0 0.75rem;
+    }
+    
+    .gallery-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .theme-actions {
+        flex-direction: column;
+    }
+    
+    .category-btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.8rem;
+    }
+}
+
+/* 로그인 페이지 스타일 */
+.login-main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 80px);
+    padding: 1rem;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+.login-container {
+    background: white;
+    width: 100%;
+    max-width: 400px;
+    padding: 2.5rem 2rem;
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.login-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #FEE500 0%, #f4d800 100%);
+}
+
+.login-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.login-header h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 1rem;
+    letter-spacing: -0.5px;
+}
+
+.login-divider {
+    height: 3px;
+    background: linear-gradient(90deg, #FEE500 0%, #f4d800 100%);
+    width: 100%;
+    max-width: 60px;
+    margin: 0 auto;
+    border-radius: 2px;
+}
+
+.login-form {
+    margin-bottom: 2rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-icon {
+    position: absolute;
+    left: 1rem;
+    color: #999;
+    font-size: 1rem;
+    z-index: 1;
+    transition: color 0.3s ease;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 1rem 1rem 1rem 3rem;
+    border: 2px solid #e9ecef;
+    border-radius: 12px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+.form-group input::placeholder {
+    color: #999;
+    font-weight: 400;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #FEE500;
+    background-color: white;
+    box-shadow: 0 0 0 4px rgba(254, 229, 0, 0.1);
+}
+
+.form-group input:focus + .input-icon {
+    color: #FEE500;
+}
+
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.remember-me {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: #666;
+    cursor: pointer;
+    user-select: none;
+}
+
+.remember-me input[type="checkbox"] {
+    display: none;
+}
+
+.checkmark {
+    width: 18px;
+    height: 18px;
+    border: 2px solid #ddd;
+    border-radius: 4px;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.remember-me input[type="checkbox"]:checked + .checkmark {
+    background-color: #FEE500;
+    border-color: #FEE500;
+}
+
+.remember-me input[type="checkbox"]:checked + .checkmark::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #333;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.forgot-password {
+    color: #FEE500;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.forgot-password:hover {
+    color: #f4d800;
+    text-decoration: underline;
+}
+
+.login-submit-btn {
+    width: 100%;
+    background: linear-gradient(135deg, #FEE500 0%, #f4d800 100%);
+    color: #333;
+    border: none;
+    padding: 1rem;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    box-shadow: 0 4px 15px rgba(254, 229, 0, 0.3);
+}
+
+.login-submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(254, 229, 0, 0.4);
+}
+
+.login-submit-btn:active {
+    transform: translateY(0);
+}
+
+.form-switch {
+    text-align: center;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e9ecef;
+}
+
+.switch-text {
+    color: #999;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+}
+
+.switch-text:hover {
+    color: #333;
+    background-color: #f8f9fa;
+}
+
+.switch-text.active {
+    color: #333;
+    font-weight: 600;
+    background-color: #FEE500;
+}
+
+.switch-divider {
+    color: #ddd;
+    margin: 0 0.5rem;
+    font-weight: 300;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .login-container {
+        max-width: 350px;
+        padding: 2rem 1.5rem;
+        margin: 1rem;
+    }
+    
+    .login-header h2 {
+        font-size: 1.6rem;
+    }
+    
+    .form-options {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .login-main {
+        padding: 0.5rem;
+    }
+    
+    .login-container {
+        padding: 1.5rem 1rem;
+        border-radius: 12px;
+    }
+    
+    .login-header h2 {
+        font-size: 1.4rem;
+    }
+    
+    .form-group input {
+        padding: 0.875rem 0.875rem 0.875rem 2.75rem;
+        font-size: 0.9rem;
+    }
+    
+    .input-icon {
+        font-size: 0.9rem;
+        left: 0.875rem;
+    }
+    
+    .login-submit-btn {
+        padding: 0.875rem;
+        font-size: 0.9rem;
+    }
+    
+    .switch-text {
+        font-size: 0.9rem;
+        padding: 0.4rem 0.8rem;
+    }
+}
+
+/* 테마 등록 페이지 스타일 */
+.upload-main {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: calc(100vh - 80px);
+    padding: 2rem 1rem;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+.upload-container {
+    background: white;
+    width: 100%;
+    max-width: 600px;
+    padding: 2.5rem 2rem;
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.upload-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #FEE500 0%, #f4d800 100%);
+}
+
+.upload-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.upload-header h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.5px;
+}
+
+.upload-header p {
+    color: #666;
+    font-size: 1rem;
+}
+
+.upload-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.upload-form .form-group {
+    margin-bottom: 0;
+}
+
+.upload-form label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #333;
+    font-size: 0.95rem;
+}
+
+.upload-form input,
+.upload-form textarea {
+    width: 100%;
+    padding: 1rem;
+    border: 2px solid #e9ecef;
+    border-radius: 12px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background-color: #f8f9fa;
+    color: #333;
+    font-family: inherit;
+}
+
+.upload-form input:focus,
+.upload-form textarea:focus {
+    outline: none;
+    border-color: #FEE500;
+    background-color: white;
+    box-shadow: 0 0 0 4px rgba(254, 229, 0, 0.1);
+}
+
+.upload-form textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.upload-form small {
+    display: block;
+    margin-top: 0.5rem;
+    color: #666;
+    font-size: 0.85rem;
+}
+
+.labels-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1rem;
+    padding: 1rem;
+    border: 2px solid #e9ecef;
+    border-radius: 12px;
+    background-color: #f8f9fa;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.label-item {
+    display: flex;
+    align-items: center;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: #333;
+    cursor: pointer;
+    user-select: none;
+    width: 100%;
+}
+
+.checkbox-label input[type="checkbox"] {
+    display: none;
+}
+
+.checkbox-label .checkmark {
+    width: 18px;
+    height: 18px;
+    border: 2px solid #ddd;
+    border-radius: 4px;
+    position: relative;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.checkbox-label input[type="checkbox"]:checked + .checkmark {
+    background-color: #FEE500;
+    border-color: #FEE500;
+}
+
+.checkbox-label input[type="checkbox"]:checked + .checkmark::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #333;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.upload-submit-btn {
+    width: 100%;
+    background: linear-gradient(135deg, #FEE500 0%, #f4d800 100%);
+    color: #333;
+    border: none;
+    padding: 1rem;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    box-shadow: 0 4px 15px rgba(254, 229, 0, 0.3);
+    margin-top: 1rem;
+}
+
+.upload-submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(254, 229, 0, 0.4);
+}
+
+.upload-submit-btn:active {
+    transform: translateY(0);
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .upload-container {
+        max-width: 500px;
+        padding: 2rem 1.5rem;
+        margin: 1rem;
+    }
+    
+    .upload-header h2 {
+        font-size: 1.6rem;
+    }
+    
+    .labels-container {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 0.75rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .upload-main {
+        padding: 1rem 0.5rem;
+    }
+    
+    .upload-container {
+        padding: 1.5rem 1rem;
+        border-radius: 12px;
+    }
+    
+    .upload-header h2 {
+        font-size: 1.4rem;
+    }
+    
+    .upload-form input,
+    .upload-form textarea {
+        padding: 0.875rem;
+        font-size: 0.9rem;
+    }
+    
+    .upload-submit-btn {
+        padding: 0.875rem;
+        font-size: 0.9rem;
+    }
+    
+    .labels-container {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        gap: 0.5rem;
+        padding: 0.75rem;
+    }
+    
+    .checkbox-label {
+        font-size: 0.85rem;
+    }
+} 

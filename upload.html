@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>테마 등록 - 카톡테마모음</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <script type="module">
+        // Firebase SDK imports
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+        import { getDatabase, ref, get, push, set } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-database.js";
+
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCzN65wqVnAEsGWQ1f9NoF-BOf1jGZIjb4",
+            authDomain: "talk-theme-archive-556e4.firebaseapp.com",
+            databaseURL: "https://talk-theme-archive-556e4-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "talk-theme-archive-556e4",
+            storageBucket: "talk-theme-archive-556e4.firebasestorage.app",
+            messagingSenderId: "370781750",
+            appId: "1:370781750:web:452da7c22b5ad13965f297",
+            measurementId: "G-EC59C2K94Z"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getDatabase(app);
+
+        // 로그인 상태 확인
+        onAuthStateChanged(auth, (user) => {
+            if (!user) {
+                alert("로그인이 필요합니다.");
+                window.location.href = 'login.html';
+            }
+        });
+
+        // 라벨 데이터 로드
+        async function loadLabels() {
+            try {
+                const labelsRef = ref(db, 'labels');
+                const labelsSnapshot = await get(labelsRef);
+                const labelsContainer = document.getElementById('labelsContainer');
+                
+                labelsContainer.innerHTML = '';
+                if (labelsSnapshot.exists()) {
+                    const data = labelsSnapshot.val();
+                    Object.keys(data).forEach((key) => {
+                        const label = data[key];
+                        const labelDiv = document.createElement('div');
+                        labelDiv.className = 'label-item';
+                        labelDiv.innerHTML = `
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="labels" value="${label.name}">
+                                <span class="checkmark"></span>
+                                ${label.name}
+                            </label>
+                        `;
+                        labelsContainer.appendChild(labelDiv);
+                    });
+                }
+            } catch (error) {
+                console.error('라벨 로드 실패:', error);
+                document.getElementById('labelsContainer').innerHTML = '<p>라벨을 불러올 수 없습니다.</p>';
+            }
+        }
+
+        // 폼 제출 처리
+        document.getElementById('uploadForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const title = formData.get('title');
+            const author = formData.get('author');
+            const preview = formData.get('preview');
+            const downloadUrl = formData.get('downloadUrl');
+            
+            // 선택된 라벨들 가져오기
+            const selectedLabels = [];
+            document.querySelectorAll('input[name="labels"]:checked').forEach(checkbox => {
+                selectedLabels.push(checkbox.value);
+            });
+
+            // 유효성 검사
+            if (!title || !author || !preview || !downloadUrl) {
+                alert('모든 필수 항목을 입력해주세요.');
+                return;
+            }
+
+            // 미리보기 이미지 URL을 배열로 변환
+            const previewArray = preview.split(',').map(url => url.trim()).filter(url => url);
+
+            try {
+                // Realtime Database에 테마 데이터 저장
+                const themeData = {
+                    title: title,
+                    author: author,
+                    preview: previewArray,
+                    downloadUrl: downloadUrl,
+                    labels: selectedLabels,
+                    createdAt: Date.now(),
+                    downloads: 0 // 초기 다운로드 수
+                };
+
+                const themesRef = ref(db, 'themes');
+                const newThemeRef = push(themesRef);
+                await set(newThemeRef, themeData);
+                
+                alert('등록되었습니다');
+                window.location.href = 'index.html';
+            } catch (error) {
+                console.error('테마 등록 실패:', error);
+                alert('등록에 실패했습니다. 다시 시도해주세요.');
+            }
+        });
+
+        // 페이지 로드 시 라벨 로드
+        document.addEventListener('DOMContentLoaded', () => {
+            loadLabels();
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <h1>카톡테마모음</h1>
+            </div>
+            <div class="header-actions">
+                <a href="index.html" class="back-btn">
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+                <a href="login.html" class="login-btn" id="loginBtn">
+                    <i class="fas fa-user"></i>
+                    로그인
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="upload-main">
+        <div class="upload-container">
+            <div class="upload-header">
+                <h2>테마 등록</h2>
+                <p>새로운 카카오톡 테마를 등록해주세요</p>
+            </div>
+
+            <form id="uploadForm" class="upload-form">
+                <div class="form-group">
+                    <label for="title">테마명 *</label>
+                    <input type="text" id="title" name="title" required placeholder="테마명을 입력하세요">
+                </div>
+
+                <div class="form-group">
+                    <label for="author">작성자명 *</label>
+                    <input type="text" id="author" name="author" required placeholder="작성자명을 입력하세요">
+                </div>
+
+                <div class="form-group">
+                    <label for="preview">미리보기 이미지 URL *</label>
+                    <textarea id="preview" name="preview" required placeholder="이미지 URL을 쉼표(,)로 구분하여 입력하세요&#10;예: https://example.com/image1.jpg, https://example.com/image2.jpg"></textarea>
+                    <small>여러 이미지는 쉼표(,)로 구분해주세요</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="downloadUrl">다운로드 링크 *</label>
+                    <input type="url" id="downloadUrl" name="downloadUrl" required placeholder="다운로드 링크를 입력하세요">
+                </div>
+
+                <div class="form-group">
+                    <label>라벨 선택</label>
+                    <div id="labelsContainer" class="labels-container">
+                        <p>라벨을 불러오는 중...</p>
+                    </div>
+                </div>
+
+                <button type="submit" class="upload-submit-btn">
+                    <i class="fas fa-upload"></i>
+                    테마 등록
+                </button>
+            </form>
+        </div>
+    </main>
+</body>
+</html> 

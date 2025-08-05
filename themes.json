@@ -1,0 +1,56 @@
+[
+  {
+    "id": 1,
+    "title": "Dotted Pattern",
+    "author": "뽀소미",
+    "img": "images/dottedpattern.png",
+    "link": "https://m.blog.naver.com/pposomi2/223857002037?recommendTrackingCode=2",
+    "downloads": 1250,
+    "date": "2025-08-05"
+  },
+  {
+    "id": 2,
+    "title": "Y2k Chat",
+    "author": "뽀소미",
+    "img": "images/y2k chat.png",
+    "link": "https://m.blog.naver.com/pposomi2/223922335578?recommendTrackingCode=2",
+    "downloads": 980,
+    "date": "2025-08-05"
+  },
+  {
+    "id": 3,
+    "title": "자연 풍경 테마",
+    "author": "자연사랑",
+    "img": "images/nature-theme.jpg",
+    "link": "#",
+    "downloads": 1150,
+    "date": "2024-01-10"
+  },
+  {
+    "id": 4,
+    "title": "맛있는 음식 테마",
+    "author": "푸드러버",
+    "img": "images/food-theme.jpg",
+    "link": "#",
+    "downloads": 850,
+    "date": "2024-01-25"
+  },
+  {
+    "id": 5,
+    "title": "강아지 테마",
+    "author": "강아지맘",
+    "img": "images/dog-theme.jpg",
+    "link": "#",
+    "downloads": 1100,
+    "date": "2024-01-18"
+  },
+  {
+    "id": 6,
+    "title": "여행 테마",
+    "author": "여행가",
+    "img": "images/travel-theme.jpg",
+    "link": "#",
+    "downloads": 920,
+    "date": "2024-01-22"
+  }
+] 

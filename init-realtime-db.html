@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Realtime Database 초기화</title>
+</head>
+<body>
+    <h1>Realtime Database 초기화</h1>
+    <button id="initLabelsBtn">라벨 데이터 추가</button>
+    <button id="initThemesBtn">테마 데이터 추가</button>
+    <div id="result"></div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+        import { getDatabase, ref, set, push } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCzN65wqVnAEsGWQ1f9NoF-BOf1jGZIjb4",
+            authDomain: "talk-theme-archive-556e4.firebaseapp.com",
+            databaseURL: "https://talk-theme-archive-556e4-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "talk-theme-archive-556e4",
+            storageBucket: "talk-theme-archive-556e4.firebasestorage.app",
+            messagingSenderId: "370781750",
+            appId: "1:370781750:web:452da7c22b5ad13965f297",
+            measurementId: "G-EC59C2K94Z"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        // 라벨 데이터
+        const labels = [
+            { name: "귀여운" },
+            { name: "다크" },
+            { name: "자연" },
+            { name: "음식" },
+            { name: "동물" },
+            { name: "여행" },
+            { name: "미니멀" },
+            { name: "레트로" },
+            { name: "Y2K" },
+            { name: "풍경" },
+            { name: "강아지" }
+        ];
+
+        // 샘플 테마 데이터
+        const sampleThemes = [
+            {
+                title: "Dotted Pattern",
+                author: "뽀소미",
+                preview: ["images/dottedpattern.png"],
+                downloadUrl: "https://m.blog.naver.com/pposomi2/223857002037?recommendTrackingCode=2",
+                labels: ["귀여운", "미니멀"],
+                downloads: 1250,
+                createdAt: Date.now()
+            },
+            {
+                title: "Y2k Chat",
+                author: "뽀소미",
+                preview: ["images/y2k chat.png"],
+                downloadUrl: "https://m.blog.naver.com/pposomi2/223922335578?recommendTrackingCode=2",
+                labels: ["레트로", "Y2K"],
+                downloads: 980,
+                createdAt: Date.now() - 86400000
+            },
+            {
+                title: "자연 풍경 테마",
+                author: "자연사랑",
+                preview: ["https://via.placeholder.com/300x200/4CAF50/FFFFFF?text=자연+테마"],
+                downloadUrl: "#",
+                labels: ["자연", "풍경"],
+                downloads: 1150,
+                createdAt: Date.now() - 172800000
+            },
+            {
+                title: "맛있는 음식 테마",
+                author: "푸드러버",
+                preview: ["https://via.placeholder.com/300x200/FF9800/FFFFFF?text=음식+테마"],
+                downloadUrl: "#",
+                labels: ["음식", "귀여운"],
+                downloads: 850,
+                createdAt: Date.now() - 259200000
+            },
+            {
+                title: "강아지 테마",
+                author: "강아지맘",
+                preview: ["https://via.placeholder.com/300x200/9C27B0/FFFFFF?text=강아지+테마"],
+                downloadUrl: "#",
+                labels: ["동물", "강아지"],
+                downloads: 1100,
+                createdAt: Date.now() - 345600000
+            },
+            {
+                title: "여행 테마",
+                author: "여행가",
+                preview: ["https://via.placeholder.com/300x200/2196F3/FFFFFF?text=여행+테마"],
+                downloadUrl: "#",
+                labels: ["여행", "풍경"],
+                downloads: 920,
+                createdAt: Date.now() - 432000000
+            }
+        ];
+
+        document.getElementById('initLabelsBtn').addEventListener('click', async () => {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '라벨 데이터 추가 중...';
+            
+            try {
+                const labelsRef = ref(db, 'labels');
+                for (const label of labels) {
+                    const newLabelRef = push(labelsRef);
+                    await set(newLabelRef, label);
+                }
+                resultDiv.innerHTML = '라벨 데이터가 성공적으로 추가되었습니다!';
+            } catch (error) {
+                console.error('Error adding labels: ', error);
+                resultDiv.innerHTML = '오류가 발생했습니다: ' + error.message;
+            }
+        });
+
+        document.getElementById('initThemesBtn').addEventListener('click', async () => {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '테마 데이터 추가 중...';
+            
+            try {
+                const themesRef = ref(db, 'themes');
+                for (const theme of sampleThemes) {
+                    const newThemeRef = push(themesRef);
+                    await set(newThemeRef, theme);
+                }
+                resultDiv.innerHTML = '테마 데이터가 성공적으로 추가되었습니다!';
+            } catch (error) {
+                console.error('Error adding themes: ', error);
+                resultDiv.innerHTML = '오류가 발생했습니다: ' + error.message;
+            }
+        });
+    </script>
+</body>
+</html> 

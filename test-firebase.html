@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firebase 연결 테스트</title>
+</head>
+<body>
+    <h1>Firebase 연결 테스트</h1>
+    <button id="testBtn">Firebase 연결 테스트</button>
+    <div id="result"></div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+        import { getFirestore, collection, getDocs, addDoc } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCzN65wqVnAEsGWQ1f9NoF-BOf1jGZIjb4",
+            authDomain: "talk-theme-archive-556e4.firebaseapp.com",
+            projectId: "talk-theme-archive-556e4",
+            storageBucket: "talk-theme-archive-556e4.firebasestorage.app",
+            messagingSenderId: "370781750",
+            appId: "1:370781750:web:452da7c22b5ad13965f297",
+            measurementId: "G-EC59C2K94Z"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        document.getElementById('testBtn').addEventListener('click', async () => {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '테스트 중...';
+            
+            try {
+                // 1. 읽기 테스트
+                const themesCollection = collection(db, 'themes');
+                const querySnapshot = await getDocs(themesCollection);
+                console.log('읽기 성공:', querySnapshot.size, '개 문서');
+                
+                // 2. 쓰기 테스트
+                const testDoc = await addDoc(collection(db, 'test'), {
+                    message: 'Firebase 연결 테스트',
+                    timestamp: new Date()
+                });
+                console.log('쓰기 성공:', testDoc.id);
+                
+                resultDiv.innerHTML = `
+                    <h3>✅ Firebase 연결 성공!</h3>
+                    <p>읽기: ${querySnapshot.size}개 문서</p>
+                    <p>쓰기: 테스트 문서 생성됨</p>
+                    <p>Firebase가 정상적으로 작동합니다.</p>
+                `;
+            } catch (error) {
+                console.error('Firebase 테스트 실패:', error);
+                resultDiv.innerHTML = `
+                    <h3>❌ Firebase 연결 실패</h3>
+                    <p>오류: ${error.message}</p>
+                    <p>Firebase 보안 규칙을 확인해주세요.</p>
+                `;
+            }
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>즐겨찾기 - 카톡테마모음</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <script type="module">
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+      import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-analytics.js";
+      // TODO: Add SDKs for Firebase products that you want to use
+      // https://firebase.google.com/docs/web/setup#available-libraries
+
+      // Your web app's Firebase configuration
+      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+      const firebaseConfig = {
+        apiKey: "AIzaSyCzN65wqVnAEsGWQ1f9NoF-BOf1jGZIjb4",
+        authDomain: "talk-theme-archive-556e4.firebaseapp.com",
+        databaseURL: "https://talk-theme-archive-556e4-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "talk-theme-archive-556e4",
+        storageBucket: "talk-theme-archive-556e4.firebasestorage.app",
+        messagingSenderId: "370781750",
+        appId: "1:370781750:web:452da7c22b5ad13965f297",
+        measurementId: "G-EC59C2K94Z"
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const analytics = getAnalytics(app);
+    </script>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <h1>카톡테마모음</h1>
+            </div>
+            <div class="header-actions">
+                <a href="index.html" class="back-btn">
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+                <a href="upload.html" class="upload-btn" id="uploadBtn" style="display: none;">
+                    <i class="fas fa-plus"></i>
+                    등록
+                </a>
+                <a href="login.html" class="login-btn" id="loginBtn">
+                    <i class="fas fa-user"></i>
+                    로그인
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main id="gallery">
+        <section class="favorites-header">
+            <div class="favorites-title">
+                <h2>즐겨찾기</h2>
+                <span class="favorites-count" id="favoritesCount">0</span>
+            </div>
+            <button id="clearAllBtn" class="clear-all-btn">모두 삭제</button>
+        </section>
+
+        <section class="theme-gallery">
+            <div class="gallery-container" id="favoritesContainer">
+                <!-- 즐겨찾기한 테마 카드들이 여기에 동적으로 추가됩니다 -->
+            </div>
+            <div id="emptyMessage" class="empty-message">
+                <i class="fas fa-heart-broken"></i>
+                <p>즐겨찾기한 테마가 없습니다.</p>
+                <a href="index.html" class="browse-link">테마 둘러보기</a>
+            </div>
+        </section>
+    </main>
+
+    <script src="favorites.js"></script>
+</body>
+</html> 

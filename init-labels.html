@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>라벨 초기화</title>
+</head>
+<body>
+    <h1>라벨 초기화</h1>
+    <button id="initBtn">라벨 데이터 추가</button>
+    <div id="result"></div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCzN65wqVnAEsGWQ1f9NoF-BOf1jGZIjb4",
+            authDomain: "talk-theme-archive-556e4.firebaseapp.com",
+            projectId: "talk-theme-archive-556e4",
+            storageBucket: "talk-theme-archive-556e4.firebasestorage.app",
+            messagingSenderId: "370781750",
+            appId: "1:370781750:web:452da7c22b5ad13965f297",
+            measurementId: "G-EC59C2K94Z"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // 라벨 데이터
+        const labels = [
+            { name: "귀여운" },
+            { name: "다크" },
+            { name: "자연" },
+            { name: "음식" },
+            { name: "동물" },
+            { name: "여행" },
+            { name: "미니멀" },
+            { name: "레트로" },
+            { name: "Y2K" },
+            { name: "풍경" },
+            { name: "강아지" }
+        ];
+
+        document.getElementById('initBtn').addEventListener('click', async () => {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '라벨 데이터 추가 중...';
+            
+            try {
+                for (const label of labels) {
+                    await addDoc(collection(db, 'labels'), label);
+                }
+                resultDiv.innerHTML = '라벨 데이터가 성공적으로 추가되었습니다!';
+            } catch (error) {
+                console.error('Error adding labels: ', error);
+                resultDiv.innerHTML = '오류가 발생했습니다: ' + error.message;
+            }
+        });
+    </script>
+</body>
+</html> 

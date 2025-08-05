@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로그인 - 카톡테마모음</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <script type="module">
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+      import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-analytics.js";
+      import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+      // TODO: Add SDKs for Firebase products that you want to use
+      // https://firebase.google.com/docs/web/setup#available-libraries
+
+      // Your web app's Firebase configuration
+      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+      const firebaseConfig = {
+        apiKey: "AIzaSyCzN65wqVnAEsGWQ1f9NoF-BOf1jGZIjb4",
+        authDomain: "talk-theme-archive-556e4.firebaseapp.com",
+        databaseURL: "https://talk-theme-archive-556e4-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "talk-theme-archive-556e4",
+        storageBucket: "talk-theme-archive-556e4.firebasestorage.app",
+        messagingSenderId: "370781750",
+        appId: "1:370781750:web:452da7c22b5ad13965f297",
+        measurementId: "G-EC59C2K94Z"
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const analytics = getAnalytics(app);
+      const auth = getAuth(app);
+
+      // 로그인 폼 제출
+      document.getElementById('loginForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        
+        try {
+          await signInWithEmailAndPassword(auth, email, password);
+          window.location.href = 'index.html';
+        } catch (error) {
+          alert('로그인에 실패했습니다: ' + error.message);
+        }
+      });
+
+      // 회원가입 폼 제출
+      document.getElementById('signupForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const email = document.getElementById('signupEmail').value;
+        const password = document.getElementById('signupPassword').value;
+        
+        try {
+          await createUserWithEmailAndPassword(auth, email, password);
+          alert('회원가입이 완료되었습니다!');
+          showLoginForm();
+        } catch (error) {
+          alert('회원가입에 실패했습니다: ' + error.message);
+        }
+      });
+
+
+
+      // 폼 전환 함수들
+      window.showSignupForm = function() {
+        document.getElementById('loginForm').style.display = 'none';
+        document.getElementById('signupForm').style.display = 'block';
+        document.getElementById('loginSwitch').classList.remove('active');
+        document.getElementById('signupSwitch').classList.add('active');
+      };
+
+      window.showLoginForm = function() {
+        document.getElementById('loginForm').style.display = 'block';
+        document.getElementById('signupForm').style.display = 'none';
+        document.getElementById('loginSwitch').classList.add('active');
+        document.getElementById('signupSwitch').classList.remove('active');
+      };
+    </script>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <h1>카톡테마모음</h1>
+            </div>
+            <div class="header-actions">
+                <a href="index.html" class="back-btn">
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="login-main">
+        <div class="login-container">
+            <div class="login-header">
+                <h2>로그인</h2>
+                <div class="login-divider"></div>
+            </div>
+
+            <div class="login-content">
+                <!-- 로그인 폼 -->
+                <form id="loginForm" class="login-form">
+                    <div class="form-group">
+                        <div class="input-wrapper">
+                            <i class="fas fa-envelope input-icon"></i>
+                            <input type="email" id="email" placeholder="이메일을 입력하세요" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-wrapper">
+                            <i class="fas fa-lock input-icon"></i>
+                            <input type="password" id="password" placeholder="비밀번호를 입력하세요" required>
+                        </div>
+                    </div>
+                    <div class="form-options">
+                        <label class="remember-me">
+                            <input type="checkbox" id="rememberMe">
+                            <span class="checkmark"></span>
+                            로그인 상태 유지
+                        </label>
+                        <a href="#" class="forgot-password">비밀번호 찾기</a>
+                    </div>
+                    <button type="submit" class="login-submit-btn">
+                        <i class="fas fa-sign-in-alt"></i>
+                        로그인
+                    </button>
+                </form>
+
+                <!-- 회원가입 폼 -->
+                <form id="signupForm" class="login-form" style="display: none;">
+                    <div class="form-group">
+                        <div class="input-wrapper">
+                            <i class="fas fa-envelope input-icon"></i>
+                            <input type="email" id="signupEmail" placeholder="이메일을 입력하세요" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-wrapper">
+                            <i class="fas fa-lock input-icon"></i>
+                            <input type="password" id="signupPassword" placeholder="비밀번호를 입력하세요" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-wrapper">
+                            <i class="fas fa-lock input-icon"></i>
+                            <input type="password" id="signupPasswordConfirm" placeholder="비밀번호를 다시 입력하세요" required>
+                        </div>
+                    </div>
+                    <div class="form-options">
+                        <label class="remember-me">
+                            <input type="checkbox" id="agreeTerms" required>
+                            <span class="checkmark"></span>
+                            <span>이용약관 및 개인정보처리방침에 동의합니다</span>
+                        </label>
+                    </div>
+                    <button type="submit" class="login-submit-btn">
+                        <i class="fas fa-user-plus"></i>
+                        회원가입
+                    </button>
+                </form>
+
+                <div class="form-switch">
+                    <span id="loginSwitch" class="switch-text active" onclick="showLoginForm()">로그인</span>
+                    <span class="switch-divider">|</span>
+                    <span id="signupSwitch" class="switch-text" onclick="showSignupForm()">회원가입</span>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html> 
