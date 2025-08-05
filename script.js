@@ -1,5 +1,6 @@
 // 전역 변수
 let themes = [];
+let labels = [];
 let currentSort = 'popular';
 let currentCategory = 'all';
 let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
@@ -105,6 +106,65 @@ async function loadThemes() {
     }
 }
 
+// 라벨 데이터 로드 및 카테고리 버튼 생성
+async function loadLabels() {
+    try {
+        // Firebase SDK 동적 import
+        const { initializeApp } = await import('https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js');
+        const { getDatabase, ref, get } = await import('https://www.gstatic.com/firebasejs/12.0.0/firebase-database.js');
+        
+        const firebaseConfig = {
+            apiKey: "AIzaSyCzN65wqVnAEsGWQ1f9NoF-BOf1jGZIjb4",
+            authDomain: "talk-theme-archive-556e4.firebaseapp.com",
+            databaseURL: "https://talk-theme-archive-556e4-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "talk-theme-archive-556e4",
+            storageBucket: "talk-theme-archive-556e4.firebasestorage.app",
+            messagingSenderId: "370781750",
+            appId: "1:370781750:web:452da7c22b5ad13965f297",
+            measurementId: "G-EC59C2K94Z"
+        };
+        
+        let app;
+        try {
+            app = initializeApp(firebaseConfig);
+        } catch (e) {
+            app = firebase.app(); // 이미 초기화된 경우
+        }
+        
+        const db = getDatabase(app);
+        const labelsRef = ref(db, 'labels');
+        const snapshot = await get(labelsRef);
+        
+        const categoryContainer = document.getElementById('categoryContainer');
+        
+        if (snapshot.exists()) {
+            const data = snapshot.val();
+            labels = Object.values(data).map(label => label.name);
+            
+            // 최신순으로 정렬 (Firebase에서 가져온 순서를 유지하되, 필요시 수정 가능)
+            labels.sort();
+            
+            // 카테고리 버튼 생성
+            labels.forEach(label => {
+                const button = document.createElement('button');
+                button.className = 'category-btn';
+                button.setAttribute('data-category', label);
+                button.textContent = label;
+                categoryContainer.appendChild(button);
+            });
+            
+            // 이벤트 리스너 다시 설정
+            initializeCategoryEventListeners();
+        } else {
+            categoryContainer.innerHTML = '<p style="text-align: center; color: #666; font-style: italic; padding: 1rem;">등록된 라벨이 없습니다.</p>';
+        }
+    } catch (error) {
+        console.error('라벨 데이터를 불러오는데 실패했습니다:', error);
+        const categoryContainer = document.getElementById('categoryContainer');
+        categoryContainer.innerHTML = '<p style="text-align: center; color: #dc3545; font-style: italic; padding: 1rem;">라벨 로드 중 오류 발생</p>';
+    }
+}
+
 // 테마 카드 생성 함수
 function createThemeCard(theme) {
     const isFavorited = favorites.includes(theme.id);
@@ -155,9 +215,11 @@ function sortThemes(type) {
 function filterAndSortThemes() {
     let filteredThemes = [...themes];
     
-    // 카테고리 필터 (현재는 전체만 표시, 필요시 확장 가능)
+    // 카테고리 필터
     if (currentCategory !== 'all') {
-        // 카테고리 필터링 로직 추가 가능
+        filteredThemes = filteredThemes.filter(theme => {
+            return theme.labels && theme.labels.includes(currentCategory);
+        });
     }
     
     // 정렬 적용
@@ -265,6 +327,23 @@ function renderAuthButton() {
     });
 }
 
+// 카테고리 이벤트 리스너 초기화
+function initializeCategoryEventListeners() {
+    const categoryBtns = document.querySelectorAll('.category-btn');
+    
+    categoryBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            // 활성 카테고리 클래스 제거
+            categoryBtns.forEach(b => b.classList.remove('active'));
+            // 클릭된 카테고리 활성화
+            btn.classList.add('active');
+            // 카테고리 필터 적용
+            currentCategory = btn.dataset.category;
+            renderGallery();
+        });
+    });
+}
+
 // 이벤트 리스너들
 function initializeEventListeners() {
     // 탭 버튼들
@@ -275,24 +354,15 @@ function initializeEventListeners() {
         });
     });
     
-    // 카테고리 버튼들 (필요시 확장)
-    categoryBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            // 활성 카테고리 클래스 제거
-            categoryBtns.forEach(b => b.classList.remove('active'));
-            // 클릭된 카테고리 활성화
-            btn.classList.add('active');
-            // 카테고리 필터 적용 (현재는 전체만 표시)
-            currentCategory = btn.dataset.category;
-            renderGallery();
-        });
-    });
+    // 초기 카테고리 이벤트 리스너 설정 (전체 버튼만)
+    initializeCategoryEventListeners();
 }
 
 // 페이지 로드 시 초기화
 document.addEventListener('DOMContentLoaded', () => {
     initializeEventListeners();
     loadThemes();
+    loadLabels(); // 라벨 데이터 로드
     renderAuthButton();
 });
 

@@ -795,8 +795,35 @@ main {
     border: 2px solid #e9ecef;
     border-radius: 12px;
     background-color: #f8f9fa;
-    max-height: 200px;
+    max-height: 250px;
     overflow-y: auto;
+}
+
+.labels-header {
+    grid-column: 1 / -1;
+    text-align: center;
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.labels-header p {
+    color: #666;
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin: 0;
+}
+
+.no-labels, .error-message {
+    grid-column: 1 / -1;
+    text-align: center;
+    color: #666;
+    font-style: italic;
+    padding: 1rem;
+}
+
+.error-message {
+    color: #dc3545;
 }
 
 .label-item {
